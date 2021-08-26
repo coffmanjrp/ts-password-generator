@@ -1,5 +1,5 @@
 const resultEl = document.getElementById('result') as HTMLSpanElement;
-const lengthEl = document.getElementById('length') as HTMLLabelElement;
+const lengthEl = document.getElementById('length') as HTMLInputElement;
 const uppercaseEl = document.getElementById('uppercase') as HTMLInputElement;
 const lowercaseEl = document.getElementById('lowercase') as HTMLInputElement;
 const numbersEl = document.getElementById('numbers') as HTMLInputElement;
@@ -47,9 +47,19 @@ clipboardEl.addEventListener('click', () => {
   alert('Password copied to clipboard!');
 });
 
-function generatePassword(lower, upper, number, symbol, length) {
+function generatePassword(
+  lower: boolean,
+  upper: boolean,
+  number: boolean,
+  symbol: boolean,
+  length: number
+) {
   let generatedPassword = '';
-  const typesCount = lower + upper + number + symbol;
+  const countLower = lower ? 1 : 0;
+  const countUpper = upper ? 1 : 0;
+  const countNumber = number ? 1 : 0;
+  const countSymbol = symbol ? 1 : 0;
+  const typesCount = countLower + countUpper + countNumber + countSymbol;
   const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
     (item) => Object.values(item)[0]
   );
@@ -58,7 +68,7 @@ function generatePassword(lower, upper, number, symbol, length) {
     return '';
   }
 
-  for (let i = 0; i < length; i += typesCount) {
+  for (let i = 0; i < length; i += +typesCount) {
     typesArr.forEach((type) => {
       const funcName = Object.keys(type)[0];
       generatedPassword += randomFunc[funcName]();

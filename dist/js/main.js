@@ -41,12 +41,16 @@ clipboardEl.addEventListener('click', function () {
 });
 function generatePassword(lower, upper, number, symbol, length) {
     var generatedPassword = '';
-    var typesCount = lower + upper + number + symbol;
+    var countLower = lower ? 1 : 0;
+    var countUpper = upper ? 1 : 0;
+    var countNumber = number ? 1 : 0;
+    var countSymbol = symbol ? 1 : 0;
+    var typesCount = countLower + countUpper + countNumber + countSymbol;
     var typesArr = [{ lower: lower }, { upper: upper }, { number: number }, { symbol: symbol }].filter(function (item) { return Object.values(item)[0]; });
     if (typesCount === 0) {
         return '';
     }
-    for (var i = 0; i < length; i += typesCount) {
+    for (var i = 0; i < length; i += +typesCount) {
         typesArr.forEach(function (type) {
             var funcName = Object.keys(type)[0];
             generatedPassword += randomFunc[funcName]();
