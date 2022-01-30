@@ -8,10 +8,15 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary-color: #7878d3;
+  --secondary-color: #494968;
+}
+
 body {
   padding: 10px;
   height: 100vh;
-  background-color: #3b3b98;
+  background-color: var(--primary-color);
   font-family: 'Mulish', sans-serif;
   color: #fff;
   overflow: hidden;
